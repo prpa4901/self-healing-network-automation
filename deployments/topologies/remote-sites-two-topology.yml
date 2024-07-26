@@ -1,0 +1,78 @@
+name: dual-clos-network
+topology:
+  nodes:
+    # Remote Office 1
+    spine1_ro1:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    spine2_ro1:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    leaf1_ro1:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    leaf2_ro1:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    host1_ro1:
+      kind: linux
+      image: alpine:latest
+    host2_ro1:
+      kind: linux
+      image: alpine:latest
+    ce_ro1:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    
+    # Internet Simulation (PE Routers)
+    pe1:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    pe2:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+
+    # Remote Office 2
+    spine1_ro2:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    spine2_ro2:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    leaf1_ro2:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    leaf2_ro2:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    host1_ro2:
+      kind: linux
+      image: alpine:latest
+    host2_ro2:
+      kind: linux
+      image: alpine:latest
+    ce_ro2:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+
+  links:
+    # Links for Remote Office 1
+    - endpoints: ["spine1_ro1:eth1", "leaf1_ro1:eth1"]
+    - endpoints: ["spine1_ro1:eth2", "leaf2_ro1:eth1"]
+    - endpoints: ["spine2_ro1:eth1", "leaf1_ro1:eth2"]
+    - endpoints: ["spine2_ro1:eth2", "leaf2_ro1:eth2"]
+    - endpoints: ["leaf1_ro1:eth3", "host1_ro1:h1r1_eth0"]
+    - endpoints: ["leaf2_ro1:eth3", "host2_ro1:h2r1_eth0"]
+    - endpoints: ["ce_ro1:eth1", "pe1:eth1"]
+
+    # Internet/WAN simulation
+    - endpoints: ["pe1:eth2", "pe2:eth1"]
+
+    # Links for Remote Office 2
+    - endpoints: ["spine1_ro2:eth1", "leaf1_ro2:eth1"]
+    - endpoints: ["spine1_ro2:eth2", "leaf2_ro2:eth1"]
+    - endpoints: ["spine2_ro2:eth1", "leaf1_ro2:eth2"]
+    - endpoints: ["spine2_ro2:eth2", "leaf2_ro2:eth2"]
+    - endpoints: ["leaf1_ro2:eth3", "host1_ro2:h1r2_eth0"]
+    - endpoints: ["leaf2_ro2:eth3", "host2_ro2:h2r2_eth0"]
+    - endpoints: ["ce_ro2:eth1", "pe2:eth2"]
