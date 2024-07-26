@@ -1,0 +1,43 @@
+name: dual-clos-network
+topology:
+  nodes:
+    # Data Center 1
+    spine1_dc1:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    leaf1_dc1:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    host1_dc1:
+      kind: linux
+      image: alpine:latest
+
+    # Data Center 2
+    spine1_dc2:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    leaf1_dc2:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    host1_dc2:
+      kind: linux
+      image: alpine:latest
+
+    # Remote Office
+    remote_office1:
+      kind: linux
+      image: alpine:latest
+    remote_office2:
+      kind: linux
+      image: alpine:latest
+
+  links:
+    - endpoints: ["spine1_dc1:eth1", "leaf1_dc1:eth1"]
+    - endpoints: ["leaf1_dc1:eth2", "host1_dc1:eth0"]
+
+    - endpoints: ["spine1_dc2:eth1", "leaf1_dc2:eth1"]
+    - endpoints: ["leaf1_dc2:eth2", "host1_dc2:eth0"]
+
+    # VXLAN links (simulate using network namespaces or GRE tunnels)
+    - endpoints: ["leaf1_dc1:eth3", "remote_office1:eth0"]
+    - endpoints: ["leaf1_dc2:eth3", "remote_office2:eth0"]
