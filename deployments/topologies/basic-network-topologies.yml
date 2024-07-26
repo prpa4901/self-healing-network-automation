@@ -33,11 +33,11 @@ topology:
 
   links:
     - endpoints: ["spine1_dc1:eth1", "leaf1_dc1:eth1"]
-    - endpoints: ["leaf1_dc1:eth2", "host1_dc1:eth0"]
+    - endpoints: ["leaf1_dc1:eth2", "host1_dc1:custom_eth0"]
 
     - endpoints: ["spine1_dc2:eth1", "leaf1_dc2:eth1"]
-    - endpoints: ["leaf1_dc2:eth2", "host1_dc2:eth0"]
+    - endpoints: ["leaf1_dc2:eth2", "host1_dc2:custom_eth0"]
 
     # VXLAN links (simulate using network namespaces or GRE tunnels)
-    - endpoints: ["leaf1_dc1:eth3", "remote_office1:eth0"]
-    - endpoints: ["leaf1_dc2:eth3", "remote_office2:eth0"]
+    - endpoints: ["leaf1_dc1:eth3", "remote_office1:custom_eth0"]
+    - endpoints: ["leaf1_dc2:eth3", "remote_office2:custom_eth0"]
