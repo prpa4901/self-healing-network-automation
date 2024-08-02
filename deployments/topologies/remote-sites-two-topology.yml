@@ -5,15 +5,19 @@ topology:
     spine1_ro1:
       kind: linux
       image: frrouting/frr:v7.5.1
+      role: l3
     spine2_ro1:
       kind: linux
       image: frrouting/frr:v7.5.1
+      role: l3
     leaf1_ro1:
       kind: linux
       image: frrouting/frr:v7.5.1
+      role: l2
     leaf2_ro1:
       kind: linux
       image: frrouting/frr:v7.5.1
+      role: l2
     host1_ro1:
       kind: linux
       image: alpine:latest
@@ -23,28 +27,35 @@ topology:
     ce_ro1:
       kind: linux
       image: frrouting/frr:v7.5.1
+      role: l3
     
     # Internet Simulation (PE Routers)
     pe1:
       kind: linux
       image: frrouting/frr:v7.5.1
+      role: l3
     pe2:
       kind: linux
       image: frrouting/frr:v7.5.1
+      role: l3
 
     # Remote Office 2
     spine1_ro2:
       kind: linux
       image: frrouting/frr:v7.5.1
+      role: l3
     spine2_ro2:
       kind: linux
       image: frrouting/frr:v7.5.1
+      role: l3
     leaf1_ro2:
       kind: linux
       image: frrouting/frr:v7.5.1
+      role: l2
     leaf2_ro2:
       kind: linux
       image: frrouting/frr:v7.5.1
+      role: l2
     host1_ro2:
       kind: linux
       image: alpine:latest
@@ -54,6 +65,7 @@ topology:
     ce_ro2:
       kind: linux
       image: frrouting/frr:v7.5.1
+      role: l3
 
   links:
     # Links for Remote Office 1
