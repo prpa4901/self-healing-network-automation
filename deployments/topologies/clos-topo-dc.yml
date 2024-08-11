@@ -1,0 +1,76 @@
+name: remote-site-dc
+
+topology:
+  nodes:
+    # WAN Edge Routers
+    R1:
+      kind: vr-evpn
+      image: vrnetlab/vr-router:latest
+      mgmt_ipv4: 172.20.20.2
+      config: configs/R1.cfg
+
+    R2:
+      kind: vr-evpn
+      image: vrnetlab/vr-router:latest
+      mgmt_ipv4: 172.20.20.3
+      config: configs/R2.cfg
+
+    # Spine Switches (Configured as a Virtual Switch)
+    Spine1:
+      kind: vr-evpn
+      image: vrnetlab/vr-router:latest
+      mgmt_ipv4: 172.20.20.4
+      config: configs/Spine1.cfg
+
+    Spine2:
+      kind: vr-evpn
+      image: vrnetlab/vr-router:latest
+      mgmt_ipv4: 172.20.20.5
+      config: configs/Spine2.cfg
+
+    # Leaf Switches
+    Leaf1:
+      kind: vr-evpn
+      image: vrnetlab/vr-router:latest
+      mgmt_ipv4: 172.20.20.6
+      config: configs/Leaf1.cfg
+
+    Leaf2:
+      kind: vr-evpn
+      image: vrnetlab/vr-router:latest
+      mgmt_ipv4: 172.20.20.7
+      config: configs/Leaf2.cfg
+
+    Leaf3:
+      kind: vr-evpn
+      image: vrnetlab/vr-router:latest
+      mgmt_ipv4: 172.20.20.8
+      config: configs/Leaf3.cfg
+
+    # AI/ML Monitoring System (Optional Node for simulation)
+    AI_ML:
+      kind: linux
+      image: alpine:latest
+      mgmt_ipv4: 172.20.20.9
+
+  links:
+    # Connections between WAN Edge Routers and Spine Switches
+    - endpoints: ["R1:eth1", "Spine1:eth1"]
+    - endpoints: ["R2:eth1", "Spine2:eth1"]
+
+    # Internal Link between Spine Switches (VSL, Stack Link)
+    - endpoints: ["Spine1:eth2", "Spine2:eth2"]
+
+    # VPC Links between Spine and Leaf Switches
+    - endpoints: ["Spine1:eth3", "Leaf1:eth1"]
+    - endpoints: ["Spine2:eth3", "Leaf1:eth2"]
+    - endpoints: ["Spine1:eth4", "Leaf2:eth1"]
+    - endpoints: ["Spine2:eth4", "Leaf2:eth2"]
+    - endpoints: ["Spine1:eth5", "Leaf3:eth1"]
+    - endpoints: ["Spine2:eth5", "Leaf3:eth2"]
+
+    # AI/ML Monitoring System connected to Spine1 (for monitoring purposes)
+    - endpoints: ["AI_ML:eth1", "Spine1:eth6"]
+
+# Configuration files for each device would be stored in the 'configs' directory.
+# These should include basic network setup, VPC configuration on Spine switches, and dynamic routing on WAN routers.
