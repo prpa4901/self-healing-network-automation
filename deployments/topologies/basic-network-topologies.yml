@@ -5,7 +5,13 @@ topology:
     spine1_dc1:
       kind: linux
       image: frrouting/frr:v7.5.1
+    spine2_dc1:
+      kind: linux
+      image: frrouting/frr:v7.5.1
     leaf1_dc1:
+      kind: linux
+      image: frrouting/frr:v7.5.1
+    leaf2_dc1:
       kind: linux
       image: frrouting/frr:v7.5.1
     host1_dc1:
