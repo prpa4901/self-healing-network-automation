@@ -4,43 +4,43 @@ topology:
   nodes:
     # WAN Edge Routers
     R1:
-      kind: vr-frr
+      kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.2
 
     R2:
-      kind: vr-frr
+      kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.3
 
     # Spine Switches (Configured as a Virtual Switch)
     Spine1:
-      kind: vr-frr
+      kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.4
 
 
     Spine2:
-      kind: vr-frr
+      kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.5
 
 
     # Leaf Switches
     Leaf1:
-      kind: vr-frr
+      kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.6
 
 
     Leaf2:
-      kind: vr-frr
+      kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.7
 
 
     Leaf3:
-      kind: vr-frr
+      kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.8
 
