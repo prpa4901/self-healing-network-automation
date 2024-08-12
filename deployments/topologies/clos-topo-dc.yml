@@ -43,15 +43,13 @@ topology:
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.8
     
-    DHCP_Server:
-      kind: linux
-      image: networkboot/dhcpd:latest
-      mgmt_ipv4: 172.20.20.10
-      environment:
-        DHCP_RANGE: 192.168.0.100,192.168.0.200
-        DHCP_SUBNET: 192.168.0.0
-        DHCP_MASK: 255.255.255.0
-        DHCP_ROUTER: 192.168.0.1
+  DHCP_Server:
+    kind: linux
+    image: networkboot/dhcpd
+    mgmt_ipv4: 172.20.20.10
+    cmd: ["sh", "-c", "dhcpd -4 --no-pid -f eth0 -cf /etc/dhcpd.conf"]
+    binds:
+      - ./config/dhcpd/dhcpd.conf:/etc/dhcpd.conf
 
 
     # AI/ML Monitoring System (Optional Node for simulation)
