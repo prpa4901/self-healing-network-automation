@@ -9,8 +9,7 @@ topology:
       mgmt-ipv4: 172.20.20.2
 
     R2:
-      kind: linux
-      image: frrouting/frr:latest
+      kind: aruba_aoscx
       mgmt-ipv4: 172.20.20.3
 
     # Spine Switches (Configured as a Virtual Switch)
@@ -43,6 +42,16 @@ topology:
       kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.8
+    
+    DHCP_Server:
+      kind: linux
+      image: networkboot/dhcpd:latest
+      mgmt_ipv4: 172.20.20.10
+      environment:
+        DHCP_RANGE: 192.168.0.100,192.168.0.200
+        DHCP_SUBNET: 192.168.0.0
+        DHCP_MASK: 255.255.255.0
+        DHCP_ROUTER: 192.168.0.1
 
 
     # AI/ML Monitoring System (Optional Node for simulation)
