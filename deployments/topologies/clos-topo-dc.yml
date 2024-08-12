@@ -9,7 +9,8 @@ topology:
       mgmt-ipv4: 172.20.20.2
 
     R2:
-      kind: aruba_aoscx
+      kind: linux
+      image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.3
 
     # Spine Switches (Configured as a Virtual Switch)
