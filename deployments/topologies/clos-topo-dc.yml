@@ -4,52 +4,52 @@ topology:
   nodes:
     # WAN Edge Routers
     R1:
-      kind: vr-evpn
-      image: vrnetlab/vr-router:latest
-      mgmt_ipv4: 172.20.20.2
+      kind: vr-frr
+      image: frrouting/frr:latest
+      mgmt-ipv4: 172.20.20.2
 
     R2:
-      kind: vr-evpn
-      image: vrnetlab/vr-router:latest
-      mgmt_ipv4: 172.20.20.3
+      kind: vr-frr
+      image: frrouting/frr:latest
+      mgmt-ipv4: 172.20.20.3
 
     # Spine Switches (Configured as a Virtual Switch)
     Spine1:
-      kind: vr-evpn
-      image: vrnetlab/vr-router:latest
-      mgmt_ipv4: 172.20.20.4
+      kind: vr-frr
+      image: frrouting/frr:latest
+      mgmt-ipv4: 172.20.20.4
 
 
     Spine2:
-      kind: vr-evpn
-      image: vrnetlab/vr-router:latest
-      mgmt_ipv4: 172.20.20.5
+      kind: vr-frr
+      image: frrouting/frr:latest
+      mgmt-ipv4: 172.20.20.5
 
 
     # Leaf Switches
     Leaf1:
-      kind: vr-evpn
-      image: vrnetlab/vr-router:latest
-      mgmt_ipv4: 172.20.20.6
+      kind: vr-frr
+      image: frrouting/frr:latest
+      mgmt-ipv4: 172.20.20.6
 
 
     Leaf2:
-      kind: vr-evpn
-      image: vrnetlab/vr-router:latest
-      mgmt_ipv4: 172.20.20.7
+      kind: vr-frr
+      image: frrouting/frr:latest
+      mgmt-ipv4: 172.20.20.7
 
 
     Leaf3:
-      kind: vr-evpn
-      image: vrnetlab/vr-router:latest
-      mgmt_ipv4: 172.20.20.8
+      kind: vr-frr
+      image: frrouting/frr:latest
+      mgmt-ipv4: 172.20.20.8
 
 
     # AI/ML Monitoring System (Optional Node for simulation)
     AI_ML:
       kind: linux
       image: alpine:latest
-      mgmt_ipv4: 172.20.20.9
+      mgmt-ipv4: 172.20.20.9
 
   links:
     # Connections between WAN Edge Routers and Spine Switches
