@@ -47,9 +47,9 @@ topology:
       kind: linux
       image: networkboot/dhcpd
       mgmt_ipv4: 172.20.20.10
-      cmd: ["sh", "-c", "dhcpd -4 --no-pid -f eth0 -cf /etc/dhcpd.conf"]
+      cmd: "dhcpd -4 --no-pid -f eth0 -cf /etc/dhcpd.conf"
       binds:
-        - ./config/dhcpd/dhcpd.conf:/etc/dhcpd.conf
+        - "./config/dhcpd/dhcpd.conf:/etc/dhcpd.conf"
 
 
     # AI/ML Monitoring System (Optional Node for simulation)
