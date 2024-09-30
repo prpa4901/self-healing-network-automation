@@ -61,7 +61,7 @@ topology:
     # Connections between WAN Edge Routers and Spine Switches
     - endpoints: ["R1:eth1", "Spine1:eth1"]
     - endpoints: ["R2:eth1", "Spine2:eth1"]
-    - endpoints: ["Spine1:eth6", "DHCP_Server:eth1"]
+    - endpoints: ["Spine1:eth7", "DHCP_Server:eth1"]
 
     # Internal Link between Spine Switches (VSL, Stack Link)
     - endpoints: ["Spine1:eth2", "Spine2:eth2"]
