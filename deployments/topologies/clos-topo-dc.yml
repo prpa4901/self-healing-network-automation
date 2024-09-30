@@ -7,32 +7,22 @@ topology:
       kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.2
-      interfaces:
-        - eth1 
 
     R2:
       kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.3
-      interfaces:
-        - eth1 
 
     # Spine Switches (Configured as a Virtual Switch)
     Spine1:
       kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.4
-      interfaces:
-        - eth1 
-
 
     Spine2:
       kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.5
-      interfaces:
-        - eth1 
-
 
     # Leaf Switches
     Leaf1:
