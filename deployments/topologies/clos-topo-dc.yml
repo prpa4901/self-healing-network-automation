@@ -26,21 +26,14 @@ topology:
 
     # Leaf Switches
     Leaf1:
-      kind: linux
-      image: frrouting/frr:latest
-      mgmt-ipv4: 172.20.20.6
-
+      kind: ovs-bridge
 
     Leaf2:
-      kind: linux
-      image: frrouting/frr:latest
-      mgmt-ipv4: 172.20.20.7
+      kind: ovs-bridge
 
     Leaf3:
-      kind: linux
-      image: frrouting/frr:latest
-      mgmt-ipv4: 172.20.20.8
-    
+      kind: ovs-bridge
+
     DHCP_Server:
       kind: linux
       image: networkboot/dhcpd
@@ -49,6 +42,15 @@ topology:
       binds:
         - "../../config/dhcpd/dhcpd.conf:/etc/dhcpd.conf"
         - "../../config/dhcpd/dhcpd.leases:/var/lib/dhcp/dhcpd.leases"
+    
+    Server1:
+      kind: linux
+      image: alpine:latest
+      mgmt-ipv4: 172.20.20.11
+    Server2:
+      kind: linux
+      image: alpine:latest
+      mgmt-ipv4: 172.20.20.12
 
 
     # AI/ML Monitoring System (Optional Node for simulation)
@@ -73,6 +75,12 @@ topology:
     - endpoints: ["Spine2:eth4", "Leaf2:eth2"]
     - endpoints: ["Spine1:eth5", "Leaf3:eth1"]
     - endpoints: ["Spine2:eth5", "Leaf3:eth2"]
+
+    - endpoints: ["Leaf1:eth3", "Server1:eth1"]
+    - endpoints: ["Leaf2:eth3", "Server2:eth1"]
+
+    - endpoints: ["Leaf1:eth3", "Server1:eth1"]
+    - endpoints: ["Leaf2:eth3", "Server2:eth1"]
 
     # AI/ML Monitoring System connected to Spine1 (for monitoring purposes)
     - endpoints: ["AI_ML:eth1", "Spine1:eth6"]
