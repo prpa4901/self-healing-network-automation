@@ -69,15 +69,15 @@ topology:
     - endpoints: ["Spine1:eth2", "Spine2:eth2"]
 
     # VPC Links between Spine and Leaf Switches
-    - endpoints: ["Spine1:eth3", "Leaf1:ovsp11"]
-    - endpoints: ["Spine2:eth3", "Leaf1:ovsp12"]
-    - endpoints: ["Spine1:eth4", "Leaf2:ovsp21"]
-    - endpoints: ["Spine2:eth4", "Leaf2:ovsp22"]
-    - endpoints: ["Spine1:eth5", "Leaf3:ovsp31"]
-    - endpoints: ["Spine2:eth5", "Leaf3:ovsp32"]
+    - endpoints: ["Spine1:eth3", "Leaf1:port11"]
+    - endpoints: ["Spine2:eth3", "Leaf1:port12"]
+    - endpoints: ["Spine1:eth4", "Leaf2:port21"]
+    - endpoints: ["Spine2:eth4", "Leaf2:port22"]
+    - endpoints: ["Spine1:eth5", "Leaf3:port31"]
+    - endpoints: ["Spine2:eth5", "Leaf3:port32"]
 
-    - endpoints: ["Leaf1:ovsp13", "Server1:eth1"]
-    - endpoints: ["Leaf2:ovsp23", "Server2:eth1"]
+    - endpoints: ["Leaf1:port13", "Server1:eth1"]
+    - endpoints: ["Leaf2:port23", "Server2:eth1"]
 
     # AI/ML Monitoring System connected to Spine1 (for monitoring purposes)
     - endpoints: ["AI_ML:eth1", "Spine1:eth6"]
