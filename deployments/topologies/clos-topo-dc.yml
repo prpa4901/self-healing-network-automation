@@ -24,17 +24,17 @@ topology:
 
     # Leaf Switches
     Leaf1:
-      kind: sonic
+      kind: sonic-vs
       image: sonic-net/sonic:latest
       mgmt-ipv4: 172.20.20.21
 
     Leaf2:
-      kind: sonic
+      kind: sonic-vs
       image: sonic-net/sonic:latest
       mgmt-ipv4: 172.20.20.22
 
     Leaf3:
-      kind: sonic
+      kind: sonic-vs
       image: sonic-net/sonic:latest
       mgmt-ipv4: 172.20.20.23
 
