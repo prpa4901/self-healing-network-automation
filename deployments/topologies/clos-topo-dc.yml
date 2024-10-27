@@ -4,13 +4,11 @@ topology:
   nodes:
     # WAN Edge Routers
     R1:
-      kind: linux
-      image: frrouting/frr:latest
+      kind: cisco_csr1000v
       mgmt-ipv4: 172.20.20.2
 
     R2:
-      kind: linux
-      image: frrouting/frr:latest
+      kind: juniper_vsrx
       mgmt-ipv4: 172.20.20.3
 
     # Spine Switches (Configured as a Virtual Switch)
@@ -26,15 +24,18 @@ topology:
 
     # Leaf Switches
     Leaf1:
-      kind: bridge
+      kind: vr-cumulus
+      image: nvidia/cumulusvx:latest
       mgmt-ipv4: 172.20.20.21
 
     Leaf2:
-      kind: bridge
+      kind: vr-cumulus
+      image: nvidia/cumulusvx:latest
       mgmt-ipv4: 172.20.20.22
 
     Leaf3:
-      kind: bridge
+      kind: vr-cumulus
+      image: nvidia/cumulusvx:latest
       mgmt-ipv4: 172.20.20.23
 
     DHCP_Server:
