@@ -26,15 +26,15 @@ topology:
 
     # Leaf Switches
     Leaf1:
-      kind: linux-bridge
+      kind: bridge
       mgmt-ipv4: 172.20.20.21
 
     Leaf2:
-      kind: linux-bridge
+      kind: bridge
       mgmt-ipv4: 172.20.20.22
 
     Leaf3:
-      kind: linux-bridge
+      kind: bridge
       mgmt-ipv4: 172.20.20.23
 
     DHCP_Server:
