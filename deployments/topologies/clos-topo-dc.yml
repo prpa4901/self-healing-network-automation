@@ -24,18 +24,18 @@ topology:
 
     # Leaf Switches
     Leaf1:
-      kind: cvx
-      image: networkop/cx:4.3.0
+      kind: linux
+      image: openswitch/opx:latest
       mgmt-ipv4: 172.20.20.21
 
     Leaf2:
-      kind: cvx
-      image: networkop/cx:4.3.0
+      kind: linux
+      image: openswitch/opx:latest
       mgmt-ipv4: 172.20.20.22
 
     Leaf3:
-      kind: cvx
-      image: networkop/cx:4.3.0
+      kind: linux
+      image: openswitch/opx:latest
       mgmt-ipv4: 172.20.20.23
 
     DHCP_Server:
