@@ -24,18 +24,18 @@ topology:
 
     # Leaf Switches
     Leaf1:
-      kind: linux
-      image: openswitch/opx:latest
+      kind: sonic
+      image: sonic-net/sonic:latest
       mgmt-ipv4: 172.20.20.21
 
     Leaf2:
-      kind: linux
-      image: openswitch/opx:latest
+      kind: sonic
+      image: sonic-net/sonic:latest
       mgmt-ipv4: 172.20.20.22
 
     Leaf3:
-      kind: linux
-      image: openswitch/opx:latest
+      kind: sonic
+      image: sonic-net/sonic:latest
       mgmt-ipv4: 172.20.20.23
 
     DHCP_Server:
