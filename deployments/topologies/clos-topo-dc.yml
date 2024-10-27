@@ -26,13 +26,28 @@ topology:
 
     # Leaf Switches
     Leaf1:
-      kind: ovs-bridge
+      kind: linux
+      image: ubuntu:latest
+      mgmt_ipv4: 172.20.20.21
+      cmd:
+        - "sudo apt update"
+        - "sudo apt install ovs-vsctl"
 
     Leaf2:
-      kind: ovs-bridge
+      kind: linux
+      image: ubuntu:latest
+      mgmt_ipv4: 172.20.20.22
+      cmd:
+        - "sudo apt update"
+        - "sudo apt install ovs-vsctl"
 
     Leaf3:
-      kind: ovs-bridge
+      kind: linux
+      image: ubuntu:latest
+      mgmt_ipv4: 172.20.20.23
+      cmd:
+        - "sudo apt update"
+        - "sudo apt install ovs-vsctl"
 
     DHCP_Server:
       kind: linux
