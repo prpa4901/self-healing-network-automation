@@ -28,7 +28,7 @@ topology:
     Leaf1:
       kind: linux
       image: ubuntu:latest
-      mgmt_ipv4: 172.20.20.21
+      mgmt-ipv4: 172.20.20.21
       binds:
         - ../../config/ovs-configs.conf:/etc/ovs-file.conf
       cmd: "bash /etc/ovs-file.conf"
@@ -36,7 +36,7 @@ topology:
     Leaf2:
       kind: linux
       image: ubuntu:latest
-      mgmt_ipv4: 172.20.20.22
+      mgmt-ipv4: 172.20.20.22
       binds:
         - ../../config/ovs-configs.conf:/etc/ovs-file.conf
       cmd: "bash /etc/ovs-file.conf"
@@ -44,7 +44,7 @@ topology:
     Leaf3:
       kind: linux
       image: ubuntu:latest
-      mgmt_ipv4: 172.20.20.23
+      mgmt-ipv4: 172.20.20.23
       binds:
         - ../../config/ovs-configs.conf:/etc/ovs-file.conf
       cmd: "bash /etc/ovs-file.conf"
