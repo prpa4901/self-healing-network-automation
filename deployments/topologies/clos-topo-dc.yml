@@ -4,11 +4,13 @@ topology:
   nodes:
     # WAN Edge Routers
     R1:
-      kind: cisco_csr1000v
+      kind: cisco_n9kv
+      image: thinksec/vr-n9kv:0.2.2
       mgmt-ipv4: 172.20.20.2
 
     R2:
       kind: juniper_vsrx
+      image: meekley/vr-vsrx:23.2R2.21 
       mgmt-ipv4: 172.20.20.3
 
     # Spine Switches (Configured as a Virtual Switch)
@@ -24,17 +26,17 @@ topology:
 
     # Leaf Switches
     Leaf1:
-      kind: vr-srlinux
+      kind: nokia_srlinux
       image: ghcr.io/nokia/srlinux:latest
       mgmt-ipv4: 172.20.20.21
 
     Leaf2:
-      kind: vr-srlinux
+      kind: nokia_srlinux
       image: ghcr.io/nokia/srlinux:latest
       mgmt-ipv4: 172.20.20.22
 
     Leaf3:
-      kind: vr-srlinux
+      kind: nokia_srlinux
       image: ghcr.io/nokia/srlinux:latest
       mgmt-ipv4: 172.20.20.23
 
@@ -55,6 +57,10 @@ topology:
       kind: linux
       image: alpine:latest
       mgmt-ipv4: 172.20.20.12
+        Server2:
+      kind: linux
+      image: alpine:latest
+      mgmt-ipv4: 172.20.20.13
 
 
     # AI/ML Monitoring System (Optional Node for simulation)
@@ -73,15 +79,16 @@ topology:
     - endpoints: ["Spine1:eth2", "Spine2:eth2"]
 
     # VPC Links between Spine and Leaf Switches
-    - endpoints: ["Spine1:eth3", "Leaf1:eth11"]
-    - endpoints: ["Spine2:eth3", "Leaf1:eth12"]
-    - endpoints: ["Spine1:eth4", "Leaf2:eth21"]
-    - endpoints: ["Spine2:eth4", "Leaf2:eth22"]
-    - endpoints: ["Spine1:eth5", "Leaf3:eth31"]
-    - endpoints: ["Spine2:eth5", "Leaf3:eth32"]
+    - endpoints: ["Spine1:eth3", "Leaf1:ethernet-1/1"]
+    - endpoints: ["Spine2:eth3", "Leaf1:ethernet-1/2"]
+    - endpoints: ["Spine1:eth4", "Leaf2:ethernet-1/1"]
+    - endpoints: ["Spine2:eth4", "Leaf2:ethernet-1/2"]
+    - endpoints: ["Spine1:eth5", "Leaf3:ethernet-1/1"]
+    - endpoints: ["Spine2:eth5", "Leaf3:ethernet-1/2"]
 
-    - endpoints: ["Leaf1:eth14", "Server1:eth1"]
-    - endpoints: ["Leaf2:eth24", "Server2:eth1"]
+    - endpoints: ["Leaf1:ethernet-1/3", "Server1:eth1"]
+    - endpoints: ["Leaf2:ethernet-1/3", "Server2:eth1"]
+    - endpoints: ["Leaf3:ethernet-1/3", "Server3:eth1"]
 
     # AI/ML Monitoring System connected to Spine1 (for monitoring purposes)
     - endpoints: ["AI_ML:eth1", "Spine1:eth6"]
