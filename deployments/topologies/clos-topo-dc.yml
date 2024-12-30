@@ -3,26 +3,30 @@ name: remote-site-dc
 topology:
   nodes:
     # WAN Edge Routers
-    R1:
+    R1: 
       kind: cisco_n9kv
-      image: thinksec/vr-n9kv:0.2.2
+      image: engrmasif/vr-n9kv:10.1.1
       mgmt-ipv4: 172.20.20.2
+      startup-config: "../../config/nodes/R1.cfg"
 
     R2:
-      kind: juniper_vsrx
-      image: meekley/vr-vsrx:23.2R2.21 
+      kind: cisco_n9kv
+      image: engrmasif/vr-n9kv:10.1.1 
       mgmt-ipv4: 172.20.20.3
+      startup-config: "../../config/nodes/R1.cfg"
 
     # Spine Switches (Configured as a Virtual Switch)
     Spine1:
       kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.4
+      startup-config: "../../config/nodes/Spine1.cfg"
 
     Spine2:
       kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.5
+      startup-config: "../../config/nodes/Spine1.cfg"
 
     # Leaf Switches
     Leaf1:
@@ -57,7 +61,7 @@ topology:
       kind: linux
       image: alpine:latest
       mgmt-ipv4: 172.20.20.12
-        Server2:
+    Server3:
       kind: linux
       image: alpine:latest
       mgmt-ipv4: 172.20.20.13
