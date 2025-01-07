@@ -5,13 +5,13 @@ topology:
     # WAN Edge Routers
     R1: 
       kind: cisco_n9kv
-      image: engrmasif/vr-n9kv:10.1.1
+      image: marekplaza/vr-n9kv:9.3.3
       mgmt-ipv4: 172.20.20.2
       startup-config: "../../config/nodes/R1.cfg"
-
+    
     R2:
       kind: cisco_n9kv
-      image: engrmasif/vr-n9kv:10.1.1 
+      image: arthurk99/cisco-csr1000v:17.03.08
       mgmt-ipv4: 172.20.20.3
       startup-config: "../../config/nodes/R2.cfg"
 
@@ -20,13 +20,21 @@ topology:
       kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.4
-      startup-config: "../../config/nodes/Spine1.cfg"
+      binds:
+        - "../../config/nodes/Spine1.cfg:/etc/frr/frr.conf"
+        - "../../config/nodes/frr-daemons.txt:/etc/frr/daemons"
+      cpu: 0.5
+      memory: 512mb
 
     Spine2:
       kind: linux
       image: frrouting/frr:latest
       mgmt-ipv4: 172.20.20.5
-      startup-config: "../../config/nodes/Spine2.cfg"
+      binds:
+        - "../../config/nodes/Spine2.cfg:/etc/frr/frr.conf"
+        - "../../config/nodes/frr-daemons.txt:/etc/frr/daemons"
+      cpu: 0.5
+      memory: 512mb
 
     # Leaf Switches
     Leaf1:
@@ -35,12 +43,17 @@ topology:
       type: ixrd3
       mgmt-ipv4: 172.20.20.21
       startup-config: "../../config/nodes/Leaf1.json"
+      cpu: 0.5
+      memory: 2Gb
+
     Leaf2:
       kind: nokia_srlinux
       image: ghcr.io/nokia/srlinux:latest
       type: ixrd3
       mgmt-ipv4: 172.20.20.22
       startup-config: "../../config/nodes/Leaf2.json"
+      cpu: 0.5
+      memory: 2Gb
 
     Leaf3:
       kind: nokia_srlinux
@@ -48,10 +61,12 @@ topology:
       type: ixrd3
       mgmt-ipv4: 172.20.20.23
       startup-config: "../../config/nodes/Leaf3.json"
+      cpu: 0.5
+      memory: 2Gb
 
     DHCP_Server:
       kind: linux
-      image: networkboot/dhcpd
+      image: pnnlmiscscripts/dhcpd
       mgmt-ipv4: 172.20.20.10
       cmd: "dhcpd -4 --no-pid -f eth0 -cf /etc/dhcpd.conf"
       binds:
@@ -62,38 +77,38 @@ topology:
       kind: linux
       image: alpine:latest
       mgmt-ipv4: 172.20.20.11
+      cpu: 0.2
+      memory: 128Mb
     Server12:
       kind: linux
       image: alpine:latest
       mgmt-ipv4: 172.20.20.12
-    Server13:
-      kind: linux
-      image: alpine:latest
-      mgmt-ipv4: 172.20.20.13
+      cpu: 0.2
+      memory: 128Mb
     Server21:
       kind: linux
       image: alpine:latest
       mgmt-ipv4: 172.20.20.14
+      cpu: 0.2
+      memory: 128Mb
     Server22:
       kind: linux
       image: alpine:latest
       mgmt-ipv4: 172.20.20.15
-    Server23:
-      kind: linux
-      image: alpine:latest
-      mgmt-ipv4: 172.20.20.16
+      cpu: 0.2
+      memory: 128Mb
     Server31:
       kind: linux
       image: alpine:latest
       mgmt-ipv4: 172.20.20.17
+      cpu: 0.2
+      memory: 128Mb
     Server32:
       kind: linux
       image: alpine:latest
       mgmt-ipv4: 172.20.20.18
-    Server33:
-      kind: linux
-      image: alpine:latest
-      mgmt-ipv4: 172.20.20.19
+      cpu: 0.2
+      memory: 128Mb
       
 
     # AI/ML Monitoring System (Optional Node for simulation)
@@ -121,13 +136,10 @@ topology:
 
     - endpoints: ["Leaf1:ethernet-1/3", "Server11:eth1"]
     - endpoints: ["Leaf1:ethernet-1/4", "Server12:eth1"]
-    - endpoints: ["Leaf1:ethernet-1/5", "Server13:eth1"]
     - endpoints: ["Leaf2:ethernet-1/3", "Server21:eth1"]
     - endpoints: ["Leaf2:ethernet-1/4", "Server22:eth1"]
-    - endpoints: ["Leaf2:ethernet-1/5", "Server23:eth1"]
     - endpoints: ["Leaf3:ethernet-1/3", "Server31:eth1"]
     - endpoints: ["Leaf3:ethernet-1/4", "Server32:eth1"]
-    - endpoints: ["Leaf3:ethernet-1/5", "Server33:eth1"]
     
 
     # AI/ML Monitoring System connected to Spine1 (for monitoring purposes)
