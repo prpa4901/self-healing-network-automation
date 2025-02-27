@@ -1,0 +1,131 @@
+# Create bond interfaces for each leaf connection
+ip link add bond1 type bond
+ip link set bond1 type bond mode 802.3ad
+ip link set bond1 type bond lacp_rate fast
+ip link set eth3 down
+ip link set eth3 master bond1
+ip link set bond1 type bond ad_actor_system 00:00:00:00:00:01
+ip link set eth3 up
+ip link set bond1 up
+
+ip link add bond2 type bond
+ip link set bond2 type bond mode 802.3ad
+ip link set bond2 type bond lacp_rate fast
+ip link set bond2 type bond ad_actor_system 00:00:00:00:00:01
+ip link set eth4 down
+ip link set eth4 master bond2
+ip link set eth4 up
+ip link set bond2 up
+
+ip link add bond3 type bond
+ip link set bond3 type bond mode 802.3ad
+ip link set bond3 type bond lacp_rate fast
+ip link set bond3 type bond ad_actor_system 00:00:00:00:00:01
+ip link set eth5 down
+ip link set eth5 master bond3
+ip link set eth5 up
+ip link set bond3 up
+
+
+#############################
+# VRF Configuration - for tenant separation
+#############################
+
+# Create VRF for tenant routing
+
+ip link add vrf1 type vrf table 1000
+ip link set vrf1 up
+
+
+#############################
+# L3VNI Configuration - for Inter-VLAN Routing
+#############################
+
+# Create bridge for L3VNI
+
+ip link add br1000 type bridge
+ip link set br1000 master vrf1
+ip addr add 10.255.255.1/24 dev br1000
+
+
+ip link add vni1000 type vxlan id 1000 dstport 4789 local 10.0.0.2 nolearning
+ip link set vni1000 master br1000
+ip link set vni1000 type bridge_slave neigh_suppress on learning off
+ip link set vni1000 up
+ip link set br1000 up
+
+# L2 VNI
+
+
+ip link add b10 type bridge
+ip link set b10 master vrf1
+ip addr add 10.10.0.2/24 dev b10
+ip link add vni1010 type vxlan local 10.0.0.2 dstport 4789 id 1010 nolearning
+ip link set vni1010 master b10
+ip link set vni1010 type bridge_slave neigh_suppress on learning off
+ip link set vni1010 up
+ip link set b10 up
+
+
+ip link add b20 type bridge
+ip link set b20 master vrf1
+ip addr add 10.20.0.2/24 dev b20
+ip link add vni1020 type vxlan local 10.0.0.2 dstport 4789 id 1020 nolearning
+ip link set vni1020 master b20
+ip link set vni1020 type bridge_slave neigh_suppress on learning off
+ip link set vni1020 up
+ip link set b20 up
+
+ip link add b30 type bridge
+ip link set b30 master vrf1
+ip addr add 10.30.0.2/24 dev b30
+ip link add vni1030 type vxlan local 10.0.0.2 dstport 4789 id 1030 nolearning
+ip link set vni1030 master b30
+ip link set vni1030 type bridge_slave neigh_suppress on learning off
+ip link set vni1030 up
+ip link set b30 up
+
+
+# BOND SUBINTERFACES
+
+ip link add link bond1 name bond1.10 type vlan id 10
+ip link set bond1.10 master b10
+ip link set bond1.10 up
+
+ip link add link bond1 name bond1.20 type vlan id 20
+ip link set bond1.20 master b20
+ip link set bond1.20 up
+
+ip link add link bond1 name bond1.30 type vlan id 30
+ip link set bond1.30 master b30
+ip link set bond1.30 up
+
+# Create VLAN subinterfaces on bond2 and attach them to bridges
+ip link add link bond2 name bond2.10 type vlan id 10
+ip link set bond2.10 master b10
+ip link set bond2.10 up
+
+ip link add link bond2 name bond2.20 type vlan id 20
+ip link set bond2.20 master b20
+ip link set bond2.20 up
+
+ip link add link bond2 name bond2.30 type vlan id 30
+ip link set bond2.30 master b30
+ip link set bond2.30 up
+
+# Create VLAN subinterfaces on bond3 and attach them to bridges
+ip link add link bond3 name bond3.10 type vlan id 10
+ip link set bond3.10 master b10
+ip link set bond3.10 up
+
+ip link add link bond3 name bond3.20 type vlan id 20
+ip link set bond3.20 master b20
+ip link set bond3.20 up
+
+ip link add link bond3 name bond3.30 type vlan id 30
+ip link set bond3.30 master b30
+ip link set bond3.30 up
+
+
+sysctl -w net.ipv4.ip_forward=1
+sysctl -w net.ipv6.conf.all.forwarding=1
